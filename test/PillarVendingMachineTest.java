@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -81,7 +82,13 @@ public class PillarVendingMachineTest {
         assertEquals(rejectedCoins.get(0), "unknown coin with size of medium and weight of light");
         assertEquals(rejectedCoins.get(1), "unknown coin with size of medium and weight of light");
         assertEquals(rejectedCoins.get(2), "unknown coin with size of giant and weight of really heavy");
+    }
 
-
+    @Test
+    public void testVendingMachineHasProducts(){
+        Map<String, String> availableProducts = pillarVendingMachine.getProducts();
+        assertEquals("$1.00", availableProducts.get("cola"));
+        assertEquals("$0.50", availableProducts.get("chips"));
+        assertEquals("$0.65", availableProducts.get("candy"));
     }
 }
