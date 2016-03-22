@@ -1,12 +1,12 @@
 
 public enum Coin {
-nickel("medium", "medium", 5), dime("small", "light", 10), quarter("big", "heavy", 25);
+nickel("medium", "medium", .05), dime("small", "light", .10), quarter("big", "heavy", .25);
 
     private String size;
     private String weight;
-    private int value;
+    private double value;
 
-    private Coin(String size, String weight, int value){
+    private Coin(String size, String weight, double value){
         this.size = size;
         this.weight = weight;
         this.value = value;
@@ -21,7 +21,7 @@ nickel("medium", "medium", 5), dime("small", "light", 10), quarter("big", "heavy
         return null;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 }

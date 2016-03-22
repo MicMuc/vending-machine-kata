@@ -25,16 +25,16 @@ public class CoinEnumTest {
 
     @Test
     public void testNickelReturnsCorrectValue(){
-        assertEquals(5, Coin.nickel.getValue());
+        assertEquals(.05, Coin.nickel.getValue(), 0);
     }
 
     @Test
     public void testDimeReturnsCorrectValue(){
-        assertEquals(10, Coin.dime.getValue());
+        assertEquals(.10, Coin.dime.getValue(), 0);
     }
 
     @Test
     public void testQuarterReturnsCorrectValue(){
-        assertEquals(25, Coin.quarter.getValue());
+        assertEquals(.25, Coin.quarter.getValue(), 0);
     }
 }

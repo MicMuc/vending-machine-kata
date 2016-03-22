@@ -14,35 +14,35 @@ public class PillarVendingMachineTest {
 
     @Test
     public void testVendingMachineCanAcceptDimes(){
-        int currentValue = pillarVendingMachine.acceptCoin("small", "light");
-        assertEquals(10, currentValue);
+        String currentValue = pillarVendingMachine.acceptCoin("small", "light");
+        assertEquals("$0.10", currentValue);
     }
     @Test
     public void testVendingMachineCanAcceptNickels(){
-        int currentValue = pillarVendingMachine.acceptCoin("medium", "medium");
-        assertEquals(5, currentValue);
+        String currentValue = pillarVendingMachine.acceptCoin("medium", "medium");
+        assertEquals("$0.05", currentValue);
     }
     @Test
     public void testVendingMachineCanAcceptQuarters(){
-        int currentValue = pillarVendingMachine.acceptCoin("big", "heavy");
-        assertEquals(25, currentValue);
+        String currentValue = pillarVendingMachine.acceptCoin("big", "heavy");
+        assertEquals("$0.25", currentValue);
     }
 
     @Test
     public void testVendingMachineCanTakeMultipleCoins(){
         pillarVendingMachine.acceptCoin("small", "light");
-        int currentValue = pillarVendingMachine.acceptCoin("small", "light");
-        assertEquals(20, currentValue);
+        String currentValue = pillarVendingMachine.acceptCoin("small", "light");
+        assertEquals("$0.20", currentValue);
     }
 
     @Test
     public void testVendingMachineDoesNotAddInvalidCoinsToTotal(){
-        int currentValue = 0;
+        String currentValue;
         pillarVendingMachine.acceptCoin("small", "light");
         currentValue = pillarVendingMachine.acceptCoin("small", "light");
-        assertEquals(20, currentValue);
+        assertEquals("$0.20", currentValue);
         currentValue = pillarVendingMachine.acceptCoin("medium", "light");
-        assertEquals(20, currentValue);
+        assertEquals("$0.20", currentValue);
 
 
     }
