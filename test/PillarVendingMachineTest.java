@@ -1,15 +1,15 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PillarVendingMachineTest {
 
-    PillarVendingMachine pillarVendingMachine;
+    private PillarVendingMachine pillarVendingMachine;
 
     @Before
     public void setup() {
@@ -86,15 +86,25 @@ public class PillarVendingMachineTest {
 
     @Test
     public void testVendingMachineHasProducts(){
-        Map<String, String> availableProducts = pillarVendingMachine.getProducts();
-        assertEquals("$1.00", availableProducts.get("cola"));
-        assertEquals("$0.50", availableProducts.get("chips"));
-        assertEquals("$0.65", availableProducts.get("candy"));
+        Set<String> availableProducts = pillarVendingMachine.getProducts();
+        assertTrue(availableProducts.contains("cola"));
+        assertTrue(availableProducts.contains("chips"));
+        assertTrue(availableProducts.contains("candy"));
     }
 
     @Test
     public void testVendingMachineCanSelectProduct(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
+    }
+
+    @Test
+    public void testVendingMachineWillNotDispenseProductIfThereIsNotEnoughMoney(){
+        String display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("$1.00", display);
     }
 }

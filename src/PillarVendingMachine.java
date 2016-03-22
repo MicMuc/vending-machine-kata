@@ -1,19 +1,16 @@
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PillarVendingMachine {
 
     double currentAmount = 0;
     List<String> coinReturn = new ArrayList();
-    Map<String, String> products = new HashMap();
+    Map<String, Double> products = new HashMap();
 
     public PillarVendingMachine(){
-        products.put("cola", "$1.00");
-        products.put("chips", "$0.50");
-        products.put("candy", "$0.65");
+        products.put("cola", 1.00);
+        products.put("chips", 0.50);
+        products.put("candy", 0.65);
     }
 
 
@@ -46,11 +43,16 @@ public class PillarVendingMachine {
         return coinReturn;
     }
 
-    public Map<String, String> getProducts(){
-        return products;
+    public Set<String> getProducts(){
+        return products.keySet();
     }
 
     public String selectProduct(String product) {
-        return "THANK YOU";
+        double cost = products.get(product);
+        if(cost > currentAmount){
+            return formatOutput(cost);
+        } else {
+            return "THANK YOU";
+        }
     }
 }
