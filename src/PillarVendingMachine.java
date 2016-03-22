@@ -49,4 +49,8 @@ public class PillarVendingMachine {
     public Map<String, String> getProducts(){
         return products;
     }
+
+    public String selectProduct(String product) {
+        return "THANK YOU";
+    }
 }

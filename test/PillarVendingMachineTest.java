@@ -91,4 +91,10 @@ public class PillarVendingMachineTest {
         assertEquals("$0.50", availableProducts.get("chips"));
         assertEquals("$0.65", availableProducts.get("candy"));
     }
+
+    @Test
+    public void testVendingMachineCanSelectProduct(){
+        String display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+    }
 }
