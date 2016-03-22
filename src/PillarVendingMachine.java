@@ -40,7 +40,9 @@ public class PillarVendingMachine {
     }
 
     public List coinReturn() {
-        return coinReturn;
+        List<String> coinReturnCopy = coinReturn;
+        coinReturn = new ArrayList<>();
+        return coinReturnCopy;
     }
 
     public Set<String> getProducts(){
@@ -52,9 +54,19 @@ public class PillarVendingMachine {
         if(cost > currentAmount){
             return formatOutput(cost);
         } else {
-            coinReturn.add("quarter");
+            determineChange(currentAmount - cost);
             currentAmount = 0;
             return "THANK YOU";
+        }
+    }
+
+    private void determineChange(double change) {
+        for(Coin coin: Coin.values()) {
+            int coins = (int) (change / coin.getValue());
+            change = change - coins * coin.getValue();
+            for (int i = 0; i < coins; i++) {
+                coinReturn.add(coin.name());
+            }
         }
     }
 }

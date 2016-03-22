@@ -1,6 +1,6 @@
 
 public enum Coin {
-nickel("medium", "medium", .05), dime("small", "light", .10), quarter("big", "heavy", .25);
+    quarter("big", "heavy", .25),  dime("small", "light", .10),nickel("medium", "medium", .05);
 
     private String size;
     private String weight;
