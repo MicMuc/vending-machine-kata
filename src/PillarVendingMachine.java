@@ -20,6 +20,9 @@ public class PillarVendingMachine {
     }
 
     public String display() {
+        if(currentAmount != 0){
+            return formatOutput(currentAmount);
+        }
         return "INSERT COIN";
     }
 }
