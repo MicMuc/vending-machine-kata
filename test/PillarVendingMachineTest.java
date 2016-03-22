@@ -43,7 +43,11 @@ public class PillarVendingMachineTest {
         assertEquals("$0.20", currentValue);
         currentValue = pillarVendingMachine.acceptCoin("medium", "light");
         assertEquals("$0.20", currentValue);
+    }
 
-
+    @Test
+    public void testVendingMachineDisplaysInsertCoin(){
+        String displayValue = pillarVendingMachine.display();
+        assertEquals("INSERT COIN", displayValue);
     }
 }

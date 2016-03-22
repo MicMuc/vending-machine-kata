@@ -18,4 +18,8 @@ public class PillarVendingMachine {
 
         return formatter.format(value);
     }
+
+    public String display() {
+        return "INSERT COIN";
+    }
 }
