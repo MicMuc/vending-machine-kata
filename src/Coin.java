@@ -18,7 +18,7 @@ nickel("medium", "medium", .05), dime("small", "light", .10), quarter("big", "he
                 return coin;
             }
         }
-        return null;
+        throw new IllegalArgumentException("unknown coin with size of "+size+" and weight of "+weight);
     }
 
     public double getValue() {

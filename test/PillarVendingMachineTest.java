@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class PillarVendingMachineTest {
@@ -58,5 +61,27 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("medium", "medium");
         displayValue = pillarVendingMachine.display();
         assertEquals("$0.05", displayValue);
+    }
+
+    @Test
+    public void testVendingMachineReturnsRejectedCoin(){
+        pillarVendingMachine.acceptCoin("medium", "light");
+        List rejectedCoins = pillarVendingMachine.coinReturn();
+        assertEquals(rejectedCoins.get(0), "unknown coin with size of medium and weight of light");
+
+    }
+
+    @Test
+    public void testVendingMachineReturnsMultipleRejectedCoins(){
+        pillarVendingMachine.acceptCoin("medium", "light");
+        pillarVendingMachine.acceptCoin("medium", "light");
+        pillarVendingMachine.acceptCoin("giant", "really heavy");
+
+        List rejectedCoins = pillarVendingMachine.coinReturn();
+        assertEquals(rejectedCoins.get(0), "unknown coin with size of medium and weight of light");
+        assertEquals(rejectedCoins.get(1), "unknown coin with size of medium and weight of light");
+        assertEquals(rejectedCoins.get(2), "unknown coin with size of giant and weight of really heavy");
+
+
     }
 }
