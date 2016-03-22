@@ -34,4 +34,16 @@ public class PillarVendingMachineTest {
         int currentValue = pillarVendingMachine.acceptCoin("small", "light");
         assertEquals(20, currentValue);
     }
+
+    @Test
+    public void testVendingMachineDoesNotAddInvalidCoinsToTotal(){
+        int currentValue = 0;
+        pillarVendingMachine.acceptCoin("small", "light");
+        currentValue = pillarVendingMachine.acceptCoin("small", "light");
+        assertEquals(20, currentValue);
+        currentValue = pillarVendingMachine.acceptCoin("medium", "light");
+        assertEquals(20, currentValue);
+
+
+    }
 }
