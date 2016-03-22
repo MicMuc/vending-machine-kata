@@ -52,6 +52,7 @@ public class PillarVendingMachine {
         if(cost > currentAmount){
             return formatOutput(cost);
         } else {
+            coinReturn.add("quarter");
             currentAmount = 0;
             return "THANK YOU";
         }
