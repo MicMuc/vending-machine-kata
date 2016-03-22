@@ -146,6 +146,38 @@ public class PillarVendingMachineTest {
         assertTrue(change.contains("quarter"));
     }
 
+
+    @Test
+    public void testVendingMachineReturnsChangeThatCanContainMultiplesOfTheSameCoin(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        String display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+        List<String> change = pillarVendingMachine.coinReturn;
+        int count = 0;
+        for(String coin: change){
+            if(coin.equals("quarter")){
+                count++;
+            }
+        }
+        assertEquals(2, count);
+    }
+
+    @Test
+    public void testVendingMachineReturnsChangeThatIsNotTheSameCoinAsPutIn(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        String display = pillarVendingMachine.selectProduct("candy");
+        assertEquals("THANK YOU", display);
+        List<String> change = pillarVendingMachine.coinReturn;
+        assertTrue(change.contains("dime"));
+    }
+
     @Test
     public void testVendingMachineReturnsCorrectChange(){
         pillarVendingMachine.acceptCoin("big", "heavy");
@@ -173,4 +205,24 @@ public class PillarVendingMachineTest {
         assertTrue(change.contains("dime"));
         assertTrue(change.contains("quarter"));
     }
+
+
+    @Test
+    public void testVendingMachineReturnsCorrectChangeWithMultipleCoinsIncludingUnknownCoins(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("small", "light");
+        pillarVendingMachine.acceptCoin("giant", "really heavy");
+        String display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+        List<String> change = pillarVendingMachine.coinReturn;
+        assertTrue(change.contains("dime"));
+        assertTrue(change.contains("quarter"));
+        assertTrue(change.contains("unknown coin with size of giant and weight of really heavy"));
+
+    }
+
 }

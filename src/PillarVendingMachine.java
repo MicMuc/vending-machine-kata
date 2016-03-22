@@ -54,16 +54,20 @@ public class PillarVendingMachine {
         if(cost > currentAmount){
             return formatOutput(cost);
         } else {
-            determineChange(currentAmount - cost);
+            determineChange(cost);
             currentAmount = 0;
             return "THANK YOU";
         }
     }
 
-    private void determineChange(double change) {
+    private void determineChange(double cost){
+        double currentAmountInCentst =  currentAmount*100;
+        double costInCents= cost*100;
+        double change = currentAmountInCentst - costInCents;
         for(Coin coin: Coin.values()) {
-            int coins = (int) (change / coin.getValue());
-            change = change - coins * coin.getValue();
+            double currentCoinInCents = coin.getValue()*100;
+            int coins = (int) (change / currentCoinInCents);
+            change = change - (coins * currentCoinInCents);
             for (int i = 0; i < coins; i++) {
                 coinReturn.add(coin.name());
             }
