@@ -52,13 +52,13 @@ public class PillarVendingMachineTest {
     @Test
     public void testVendingMachineDisplaysInsertCoin(){
         String displayValue = pillarVendingMachine.display();
-        assertEquals("INSERT COIN", displayValue);
+        assertEquals("INSERT COINS", displayValue);
     }
 
     @Test
     public void testVendingMachineDisplaysCurrentValue(){
         String displayValue = pillarVendingMachine.display();
-        assertEquals("INSERT COIN", displayValue);
+        assertEquals("INSERT COINS", displayValue);
         pillarVendingMachine.acceptCoin("medium", "medium");
         displayValue = pillarVendingMachine.display();
         assertEquals("$0.05", displayValue);
@@ -106,5 +106,30 @@ public class PillarVendingMachineTest {
     public void testVendingMachineWillNotDispenseProductIfThereIsNotEnoughMoney(){
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("$1.00", display);
+    }
+
+    @Test
+    public void testVendingMachineDisplaysInsertCoinsAfterPurchase(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        String display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+        display = pillarVendingMachine.display();
+        assertEquals("INSERT COINS", display);
+    }
+
+    @Test
+    public void testVendingMachineDisplaysInsertCoinsAfterPurchaseWhenThereWasExcessMoney(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        String display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+        display = pillarVendingMachine.display();
+        assertEquals("INSERT COINS", display);
     }
 }

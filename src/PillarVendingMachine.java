@@ -36,7 +36,7 @@ public class PillarVendingMachine {
         if(currentAmount != 0){
             return formatOutput(currentAmount);
         }
-        return "INSERT COIN";
+        return "INSERT COINS";
     }
 
     public List coinReturn() {
@@ -52,6 +52,7 @@ public class PillarVendingMachine {
         if(cost > currentAmount){
             return formatOutput(cost);
         } else {
+            currentAmount = 0;
             return "THANK YOU";
         }
     }
