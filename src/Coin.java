@@ -21,4 +21,7 @@ nickel("medium", "medium", 5), dime("small", "light", 10), quarter("big", "heavy
         return null;
     }
 
+    public int getValue() {
+        return value;
+    }
 }
