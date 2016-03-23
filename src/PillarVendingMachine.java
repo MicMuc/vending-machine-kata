@@ -3,10 +3,10 @@ import java.util.*;
 
 public class PillarVendingMachine {
 
-    double currentAmount = 0;
-    List<String> coinReturn = new ArrayList();
-    List<Coin> coinsInTransaction = new ArrayList();
-    Map<String, Product> products = new HashMap();
+    private double currentAmount = 0;
+    private List<String> coinReturn = new ArrayList();
+    private List<Coin> coinsInTransaction = new ArrayList();
+    private Map<String, Product> products = new HashMap();
 
 
     public PillarVendingMachine(List<Product> products){
@@ -51,12 +51,17 @@ public class PillarVendingMachine {
         return products.keySet();
     }
 
-    public String selectProduct(String product) {
-        double cost = products.get(product).getCost();
-        if(cost > currentAmount){
+    public String selectProduct(String productName) {
+        Product product = products.get(productName);
+        double cost = product.getCost();
+        if(product.getAmount()<1){
+            return "SOLD OUT";
+        }
+        else if(cost > currentAmount){
             return formatOutput(cost);
         } else {
             determineChange(cost);
+            product.subtractProduct();
             currentAmount = 0;
             return "THANK YOU";
         }
