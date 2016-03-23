@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 public enum Coin {
     quarter("big", "heavy", .25),  dime("small", "light", .10),nickel("medium", "medium", .05);
@@ -6,7 +7,7 @@ public enum Coin {
     private String weight;
     private double value;
 
-    private Coin(String size, String weight, double value){
+    Coin(String size, String weight, double value){
         this.size = size;
         this.weight = weight;
         this.value = value;
@@ -14,7 +15,7 @@ public enum Coin {
 
     public static Coin getCoinByAttributes(String size, String weight){
         for(Coin coin: Coin.values()){
-            if(coin.size == size && coin.weight == weight){
+            if(Objects.equals(coin.size, size) && Objects.equals(coin.weight, weight)){
                 return coin;
             }
         }

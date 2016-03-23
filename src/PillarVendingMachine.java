@@ -7,7 +7,7 @@ public class PillarVendingMachine {
     private double currentAmount = 0;
     private ArrayList<Coin> coinSupply = new ArrayList<>();
     private double valueOfCoinSupply = 0;
-    private ArrayList coinReturn = new ArrayList<>();
+    private ArrayList<String> coinReturn = new ArrayList<>();
     private ArrayList<Coin> coinsInTransaction = new ArrayList<>();
     private HashMap<String, Product> products = new HashMap<>();
 
@@ -58,8 +58,8 @@ public class PillarVendingMachine {
         return valueOfCoinSupply < highestCost * 3;
     }
 
-    public ArrayList coinReturn() {
-        ArrayList coinReturnCopy = coinReturn;
+    public ArrayList<String> coinReturn() {
+        ArrayList<String> coinReturnCopy = coinReturn;
         coinReturn = new ArrayList<>();
         return coinReturnCopy;
     }

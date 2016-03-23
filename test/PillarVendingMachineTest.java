@@ -243,7 +243,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("medium", "medium");
         pillarVendingMachine.acceptCoin("big", "heavy");
         pillarVendingMachine.returnCoins();
-        List<String> change = pillarVendingMachine.coinReturn();
+        ArrayList change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("nickel"));
         assertTrue(change.contains("dime"));
         assertTrue(change.contains("quarter"));pillarVendingMachine.coinReturn();
