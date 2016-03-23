@@ -1,14 +1,15 @@
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PillarVendingMachine {
 
     private double currentAmount = 0;
-    private List<Coin> coinSupply = new ArrayList();
+    private ArrayList<Coin> coinSupply = new ArrayList<>();
     private double valueOfCoinSupply = 0;
-    private List<String> coinReturn = new ArrayList();
-    private List<Coin> coinsInTransaction = new ArrayList();
-    private Map<String, Product> products = new HashMap();
+    private ArrayList coinReturn = new ArrayList<>();
+    private ArrayList<Coin> coinsInTransaction = new ArrayList<>();
+    private HashMap<String, Product> products = new HashMap<>();
 
 
     public PillarVendingMachine(ArrayList<Coin> changeSupply, List<Product> products){
@@ -54,14 +55,11 @@ public class PillarVendingMachine {
                 highestCost = product.getCost();
             }
         }
-        if(valueOfCoinSupply < highestCost*3){
-            return true;
-        }
-        return false;
+        return valueOfCoinSupply < highestCost * 3;
     }
 
-    public List<String> coinReturn() {
-        List<String> coinReturnCopy = coinReturn;
+    public ArrayList coinReturn() {
+        ArrayList coinReturnCopy = coinReturn;
         coinReturn = new ArrayList<>();
         return coinReturnCopy;
     }
@@ -113,9 +111,7 @@ public class PillarVendingMachine {
     }
 
     public void returnCoins() {
-        for(Coin coin: coinsInTransaction){
-            coinReturn.add(coin.name());
-        }
+        coinReturn.addAll(coinsInTransaction.stream().map(Coin::name).collect(Collectors.toList()));
         currentAmount = 0;
     }
 }
