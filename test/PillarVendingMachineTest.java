@@ -337,14 +337,15 @@ public class PillarVendingMachineTest {
 
     @Test
     public void testVendingMachineCanNeedExactChange(){
-        pillarVendingMachine.acceptCoin("small", "light");
-        pillarVendingMachine.acceptCoin("medium", "medium");
-        pillarVendingMachine.acceptCoin("big", "heavy");
-        pillarVendingMachine.returnCoins();
-        List<String> change = pillarVendingMachine.coinReturn();
-        assertTrue(change.contains("nickel"));
-        assertTrue(change.contains("dime"));
-        assertTrue(change.contains("quarter"));pillarVendingMachine.coinReturn();
-        assertEquals("INSERT COINS", pillarVendingMachine.display());
+        ArrayList<Product> products= new ArrayList<>();
+        products.add(new Product("chips", 0.65, 1));
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
+        String display = pillarVendingMachine.display();
+        assertEquals("EXACT CHANGE ONLY", display);
+
+
     }
+
+
 }

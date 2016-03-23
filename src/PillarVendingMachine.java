@@ -4,14 +4,18 @@ import java.util.*;
 public class PillarVendingMachine {
 
     private double currentAmount = 0;
-    private List<Coin> coinsInMachineForChange = new ArrayList();
+    private List<Coin> coinSupply = new ArrayList();
+    private double valueOfCoinSupply = 0;
     private List<String> coinReturn = new ArrayList();
     private List<Coin> coinsInTransaction = new ArrayList();
     private Map<String, Product> products = new HashMap();
 
 
     public PillarVendingMachine(ArrayList<Coin> changeSupply, List<Product> products){
-        coinsInMachineForChange = changeSupply;
+        this.coinSupply = changeSupply;
+        for(Coin coin: coinSupply){
+            valueOfCoinSupply += coin.getValue();
+        }
         for(Product product: products){
             this.products.put(product.getName(), product);
         }
@@ -37,8 +41,19 @@ public class PillarVendingMachine {
     public String display() {
         if(currentAmount != 0){
             return formatOutput(currentAmount);
+        } else if (needExactChange()){
+            return "EXACT CHANGE ONLY";
         }
         return "INSERT COINS";
+    }
+
+    private boolean needExactChange() {
+        for(Product product: products.values()){
+            if(valueOfCoinSupply < product.getCost()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public List coinReturn() {
