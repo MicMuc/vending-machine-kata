@@ -381,5 +381,39 @@ public class PillarVendingMachineTest {
         assertEquals(1, nickelCount);
     }
 
+    @Test
+    public void testVendingMachineCanPutCoinsIntoSupplyAfterPurchase(){
+        String display;
+        ArrayList<Product> products= new ArrayList<>();
+        products.add(new Product("cola", 1.00, 5));
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        for(int i=0; i<15; i++){
+            coinSupply.add(Coin.dime);
+            coinSupply.add(Coin.nickel);
+        }
+        coinSupply.add(Coin.quarter);
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+
+        display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+        List<String> returnedCoins = pillarVendingMachine.checkSupply();
+        int quarterCount = 0;
+        int dimeCount = 0;
+        int nickelCount = 0;
+        for(String coin: returnedCoins) {
+            if (coin.equals(Coin.quarter.name())) quarterCount++;
+            if (coin.equals(Coin.dime.name())) dimeCount++;
+            if (coin.equals(Coin.nickel.name())) nickelCount++;
+        }
+        assertEquals(5, quarterCount);
+        assertEquals(15, dimeCount);
+        assertEquals(15, nickelCount);
+    }
+
+
 }
 

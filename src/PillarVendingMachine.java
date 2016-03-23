@@ -80,7 +80,15 @@ public class PillarVendingMachine {
             determineChange(cost);
             product.subtractProduct();
             currentAmount = 0;
+            addCoinsInTransactionToSupply();
             return "THANK YOU";
+        }
+    }
+
+    private void addCoinsInTransactionToSupply() {
+        for(Coin coin: coinsInTransaction){
+            coinSupply.add(coin);
+            valueOfCoinSupply += coin.getValue();
         }
     }
 
@@ -113,5 +121,9 @@ public class PillarVendingMachine {
     public void returnCoins() {
         coinReturn.addAll(coinsInTransaction.stream().map(Coin::name).collect(Collectors.toList()));
         currentAmount = 0;
+    }
+
+    public List<String> checkSupply() {
+        return coinSupply.stream().map(Coin::name).collect(Collectors.toList());
     }
 }
