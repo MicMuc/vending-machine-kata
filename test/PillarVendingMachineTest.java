@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,11 @@ public class PillarVendingMachineTest {
 
     @Before
     public void setup() {
-        pillarVendingMachine = new PillarVendingMachine();
+        List<Product> products= new ArrayList();
+        products.add(new Product("cola", 1.00, 5));
+        products.add(new Product("chips", 0.50, 5));
+        products.add(new Product("candy", 0.65, 5));
+        pillarVendingMachine = new PillarVendingMachine(products);
     }
 
     @Test
@@ -254,6 +259,5 @@ public class PillarVendingMachineTest {
         }
         assertEquals(3, count);
     }
-
 
 }

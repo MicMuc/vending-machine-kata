@@ -6,12 +6,13 @@ public class PillarVendingMachine {
     double currentAmount = 0;
     List<String> coinReturn = new ArrayList();
     List<Coin> coinsInTransaction = new ArrayList();
-    Map<String, Double> products = new HashMap();
+    Map<String, Product> products = new HashMap();
 
-    public PillarVendingMachine(){
-        products.put("cola", 1.00);
-        products.put("chips", 0.50);
-        products.put("candy", 0.65);
+
+    public PillarVendingMachine(List<Product> products){
+        for(Product product: products){
+            this.products.put(product.getName(), product);
+        }
     }
 
 
@@ -51,7 +52,7 @@ public class PillarVendingMachine {
     }
 
     public String selectProduct(String product) {
-        double cost = products.get(product);
+        double cost = products.get(product).getCost();
         if(cost > currentAmount){
             return formatOutput(cost);
         } else {
