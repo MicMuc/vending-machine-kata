@@ -2,7 +2,7 @@ import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class PillarVendingMachine {
+public class VendingMachine {
 
     private double currentAmount = 0;
     private ArrayList<Coin> coinSupply = new ArrayList<>();
@@ -12,7 +12,7 @@ public class PillarVendingMachine {
     private HashMap<String, Product> products = new HashMap<>();
 
 
-    public PillarVendingMachine(ArrayList<Coin> changeSupply, List<Product> products){
+    public VendingMachine(ArrayList<Coin> changeSupply, List<Product> products){
         this.coinSupply = changeSupply;
         for(Coin coin: coinSupply){
             valueOfCoinSupply += coin.getValue();
@@ -93,9 +93,9 @@ public class PillarVendingMachine {
     }
 
     private void determineChange(double cost){
-        double currentAmountInCentst =  currentAmount*100;
+        double currentAmountInCents =  currentAmount*100;
         double costInCents= cost*100;
-        double change = currentAmountInCentst - costInCents;
+        double change = currentAmountInCents - costInCents;
         for(Coin coin: Coin.values()) {
             double currentCoinInCents = coin.getValue()*100;
             int coins = (int) (change / currentCoinInCents);
