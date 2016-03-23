@@ -20,7 +20,7 @@ public class PillarVendingMachineTest {
         products.add(new Product("candy", 0.65, 5));
 
         ArrayList<Coin> coinSupply= new ArrayList<>();
-        for(int i=0; i<3; i++){
+        for(int i=0; i<15; i++){
             coinSupply.add(Coin.quarter);
             coinSupply.add(Coin.dime);
             coinSupply.add(Coin.nickel);
@@ -319,7 +319,7 @@ public class PillarVendingMachineTest {
         ArrayList<Product> products= new ArrayList<>();
         products.add(new Product("chips", 0.50, 1));
         ArrayList<Coin> coinSupply= new ArrayList<>();
-        for(int i=0; i<3; i++){
+        for(int i=0; i<15; i++){
             coinSupply.add(Coin.quarter);
             coinSupply.add(Coin.dime);
             coinSupply.add(Coin.nickel);

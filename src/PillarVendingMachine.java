@@ -48,10 +48,14 @@ public class PillarVendingMachine {
     }
 
     private boolean needExactChange() {
+        double highestCost = -1;
         for(Product product: products.values()){
-            if(valueOfCoinSupply < product.getCost()){
-                return true;
+            if(highestCost == -1 || (product.getCost() > highestCost && product.getAmount() > 0)){
+                highestCost = product.getCost();
             }
+        }
+        if(valueOfCoinSupply < highestCost*3){
+            return true;
         }
         return false;
     }
