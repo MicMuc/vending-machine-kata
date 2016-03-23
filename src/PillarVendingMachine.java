@@ -4,12 +4,14 @@ import java.util.*;
 public class PillarVendingMachine {
 
     private double currentAmount = 0;
+    private List<Coin> coinsInMachineForChange = new ArrayList();
     private List<String> coinReturn = new ArrayList();
     private List<Coin> coinsInTransaction = new ArrayList();
     private Map<String, Product> products = new HashMap();
 
 
-    public PillarVendingMachine(List<Product> products){
+    public PillarVendingMachine(ArrayList<Coin> changeSupply, List<Product> products){
+        coinsInMachineForChange = changeSupply;
         for(Product product: products){
             this.products.put(product.getName(), product);
         }

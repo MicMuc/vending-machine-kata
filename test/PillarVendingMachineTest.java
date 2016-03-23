@@ -18,7 +18,14 @@ public class PillarVendingMachineTest {
         products.add(new Product("cola", 1.00, 5));
         products.add(new Product("chips", 0.50, 5));
         products.add(new Product("candy", 0.65, 5));
-        pillarVendingMachine = new PillarVendingMachine(products);
+
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        for(int i=0; i<3; i++){
+            coinSupply.add(Coin.quarter);
+            coinSupply.add(Coin.dime);
+            coinSupply.add(Coin.nickel);
+        }
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
     }
 
     @Test
@@ -265,7 +272,13 @@ public class PillarVendingMachineTest {
         String display;
         ArrayList<Product> products= new ArrayList<>();
         products.add(new Product("chips", 0.50, 1));
-        pillarVendingMachine = new PillarVendingMachine(products);
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        for(int i=0; i<3; i++){
+            coinSupply.add(Coin.quarter);
+            coinSupply.add(Coin.dime);
+            coinSupply.add(Coin.nickel);
+        }
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
         pillarVendingMachine.acceptCoin("big", "heavy");
         pillarVendingMachine.acceptCoin("big", "heavy");
        display = pillarVendingMachine.selectProduct("chips");
@@ -281,7 +294,13 @@ public class PillarVendingMachineTest {
         String display;
         ArrayList<Product> products= new ArrayList<>();
         products.add(new Product("chips", 0.50, 1));
-        pillarVendingMachine = new PillarVendingMachine(products);
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        for(int i=0; i<3; i++){
+            coinSupply.add(Coin.quarter);
+            coinSupply.add(Coin.dime);
+            coinSupply.add(Coin.nickel);
+        }
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
         pillarVendingMachine.acceptCoin("big", "heavy");
         pillarVendingMachine.acceptCoin("big", "heavy");
         display = pillarVendingMachine.selectProduct("chips");
@@ -299,7 +318,13 @@ public class PillarVendingMachineTest {
         String display;
         ArrayList<Product> products= new ArrayList<>();
         products.add(new Product("chips", 0.50, 1));
-        pillarVendingMachine = new PillarVendingMachine(products);
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        for(int i=0; i<3; i++){
+            coinSupply.add(Coin.quarter);
+            coinSupply.add(Coin.dime);
+            coinSupply.add(Coin.nickel);
+        }
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
         pillarVendingMachine.acceptCoin("big", "heavy");
         pillarVendingMachine.acceptCoin("big", "heavy");
         display = pillarVendingMachine.selectProduct("chips");
@@ -310,5 +335,16 @@ public class PillarVendingMachineTest {
         assertEquals("INSERT COINS", display);
     }
 
-
+    @Test
+    public void testVendingMachineCanNeedExactChange(){
+        pillarVendingMachine.acceptCoin("small", "light");
+        pillarVendingMachine.acceptCoin("medium", "medium");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.returnCoins();
+        List<String> change = pillarVendingMachine.coinReturn();
+        assertTrue(change.contains("nickel"));
+        assertTrue(change.contains("dime"));
+        assertTrue(change.contains("quarter"));pillarVendingMachine.coinReturn();
+        assertEquals("INSERT COINS", pillarVendingMachine.display());
+    }
 }
