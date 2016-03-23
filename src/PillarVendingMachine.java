@@ -60,7 +60,7 @@ public class PillarVendingMachine {
         return false;
     }
 
-    public List coinReturn() {
+    public List<String> coinReturn() {
         List<String> coinReturnCopy = coinReturn;
         coinReturn = new ArrayList<>();
         return coinReturnCopy;
@@ -93,11 +93,23 @@ public class PillarVendingMachine {
         for(Coin coin: Coin.values()) {
             double currentCoinInCents = coin.getValue()*100;
             int coins = (int) (change / currentCoinInCents);
+            coins = removeCoinsFromSupply(coin, coins);
             change = change - (coins * currentCoinInCents);
             for (int i = 0; i < coins; i++) {
                 coinReturn.add(coin.name());
             }
         }
+    }
+
+    private int removeCoinsFromSupply(Coin coinTypeToReturn, int coins) {
+        int j = 0;
+        for(int i=coins; i>0; i--){
+            if(!coinSupply.remove(coinTypeToReturn)){
+                return j;
+            }
+            j++;
+        }
+        return j;
     }
 
     public void returnCoins() {

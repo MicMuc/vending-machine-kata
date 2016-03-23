@@ -154,7 +154,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("big", "heavy");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn();
+        List change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("quarter"));
     }
 
@@ -347,5 +347,39 @@ public class PillarVendingMachineTest {
 
     }
 
+    @Test
+    public void testVendingMachineCanRunOutOfQuartersAndStillReturnFullChange(){
+        String display;
+        ArrayList<Product> products= new ArrayList<>();
+        products.add(new Product("cola", 1.00, 5));
+        ArrayList<Coin> coinSupply= new ArrayList<>();
+        for(int i=0; i<15; i++){
+            coinSupply.add(Coin.dime);
+            coinSupply.add(Coin.nickel);
+        }
+        coinSupply.add(Coin.quarter);
+        pillarVendingMachine = new PillarVendingMachine(coinSupply, products);
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        display = pillarVendingMachine.selectProduct("cola");
+        assertEquals("THANK YOU", display);
+        List<String> returnedCoins = pillarVendingMachine.coinReturn();
+        int quarterCount = 0;
+        int dimeCount = 0;
+        int nickelCount = 0;
+        for(String coin: returnedCoins) {
+            if (coin.equals(Coin.quarter.name())) quarterCount++;
+            if (coin.equals(Coin.dime.name())) dimeCount++;
+            if (coin.equals(Coin.nickel.name())) nickelCount++;
+        }
+        assertEquals(1, quarterCount);
+        assertEquals(2, dimeCount);
+        assertEquals(1, nickelCount);
+    }
 
 }
+
