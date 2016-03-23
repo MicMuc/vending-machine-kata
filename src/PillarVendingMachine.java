@@ -15,8 +15,6 @@ public class PillarVendingMachine {
         }
     }
 
-
-
     public String acceptCoin(String size, String weight) {
         Coin coin;
         try {

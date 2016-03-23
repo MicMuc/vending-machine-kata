@@ -274,7 +274,41 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("big", "heavy");
         display = pillarVendingMachine.selectProduct("chips");
         assertEquals("SOLD OUT", display);
-
     }
+
+    @Test
+    public void testVendingMachineCanRunOutOfAProductAndDisplayAmountInTransaction(){
+        String display;
+        ArrayList<Product> products= new ArrayList<>();
+        products.add(new Product("chips", 0.50, 1));
+        pillarVendingMachine = new PillarVendingMachine(products);
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        display = pillarVendingMachine.selectProduct("chips");
+        assertEquals("THANK YOU", display);
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        display = pillarVendingMachine.selectProduct("chips");
+        assertEquals("SOLD OUT", display);
+        display = pillarVendingMachine.display();
+        assertEquals("$0.50", display);
+    }
+
+    @Test
+    public void testVendingMachineCanRunOutOfAProductAndDisplayInsertCoinsIfThereIsNoMoneyInTheTransaction(){
+        String display;
+        ArrayList<Product> products= new ArrayList<>();
+        products.add(new Product("chips", 0.50, 1));
+        pillarVendingMachine = new PillarVendingMachine(products);
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        display = pillarVendingMachine.selectProduct("chips");
+        assertEquals("THANK YOU", display);
+        display = pillarVendingMachine.selectProduct("chips");
+        assertEquals("SOLD OUT", display);
+        display = pillarVendingMachine.display();
+        assertEquals("INSERT COINS", display);
+    }
+
 
 }
