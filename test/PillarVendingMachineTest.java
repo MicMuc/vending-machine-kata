@@ -142,7 +142,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("big", "heavy");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn;
+        List<String> change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("quarter"));
     }
 
@@ -157,7 +157,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("big", "heavy");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn;
+        List<String> change = pillarVendingMachine.coinReturn();
         int count = 0;
         for(String coin: change){
             if(coin.equals("quarter")){
@@ -174,7 +174,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("big", "heavy");
         String display = pillarVendingMachine.selectProduct("candy");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn;
+        List<String> change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("dime"));
     }
 
@@ -187,7 +187,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("small", "light");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn;
+        List<String> change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("dime"));
     }
 
@@ -201,7 +201,7 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("small", "light");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn;
+        List<String> change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("dime"));
         assertTrue(change.contains("quarter"));
     }
@@ -218,11 +218,42 @@ public class PillarVendingMachineTest {
         pillarVendingMachine.acceptCoin("giant", "really heavy");
         String display = pillarVendingMachine.selectProduct("cola");
         assertEquals("THANK YOU", display);
-        List<String> change = pillarVendingMachine.coinReturn;
+        List<String> change = pillarVendingMachine.coinReturn();
         assertTrue(change.contains("dime"));
         assertTrue(change.contains("quarter"));
         assertTrue(change.contains("unknown coin with size of giant and weight of really heavy"));
 
     }
+
+    @Test
+    public void testVendingMachineCanReturnCoinsWhenCustomerWants(){
+        pillarVendingMachine.acceptCoin("small", "light");
+        pillarVendingMachine.acceptCoin("medium", "medium");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.returnCoins();
+        List<String> change = pillarVendingMachine.coinReturn();
+        assertTrue(change.contains("nickel"));
+        assertTrue(change.contains("dime"));
+        assertTrue(change.contains("quarter"));pillarVendingMachine.coinReturn();
+        assertEquals("INSERT COINS", pillarVendingMachine.display());
+    }
+
+    @Test
+    public void testVendingMachineReturnsMultipleCoinsOfTheSameType(){
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.acceptCoin("big", "heavy");
+        pillarVendingMachine.returnCoins();
+        assertEquals("INSERT COINS", pillarVendingMachine.display());
+        List<String> change = pillarVendingMachine.coinReturn();
+        int count = 0;
+        for(String coin: change){
+            if(coin.equals("quarter")){
+                count++;
+            }
+        }
+        assertEquals(3, count);
+    }
+
 
 }

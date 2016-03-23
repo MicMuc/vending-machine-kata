@@ -5,6 +5,7 @@ public class PillarVendingMachine {
 
     double currentAmount = 0;
     List<String> coinReturn = new ArrayList();
+    List<Coin> coinsInTransaction = new ArrayList();
     Map<String, Double> products = new HashMap();
 
     public PillarVendingMachine(){
@@ -23,7 +24,7 @@ public class PillarVendingMachine {
             coinReturn.add(iae.getMessage());
             return formatOutput(currentAmount);
         }
-
+        coinsInTransaction.add(coin);
         return formatOutput(currentAmount += coin.getValue());
     }
     private String formatOutput(double value){
@@ -72,5 +73,12 @@ public class PillarVendingMachine {
                 coinReturn.add(coin.name());
             }
         }
+    }
+
+    public void returnCoins() {
+        for(Coin coin: coinsInTransaction){
+            coinReturn.add(coin.name());
+        }
+        currentAmount = 0;
     }
 }
